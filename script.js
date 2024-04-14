@@ -41,34 +41,56 @@ function playsound() {
     audio.play();
 }
 
+const disableBoxes = () => {
+    for(let box of boxes){
+        box.disabled = true;
+
+    }
+}
+
 const showwinner = (Winner) => {
     msg.innerText = `Congratulations,Winner is ${Winner}`;
     msg.style.display = "block";
     msg.style.color = "white";
+    disableBoxes();
     playwinsound();
+   
 }
 function playwinsound() {
     const audio = new Audio("tic tac toe_win.wav");
     audio.play();
 }
 const checkWinner = () => {
-    let isDraw = true;
+    let draw = true;
+
     for (const pattern of winPatterns) {
         let pos1val = boxes[pattern[0]].innerText;
         let pos2val = boxes[pattern[1]].innerText;
         let pos3val = boxes[pattern[2]].innerText;
 
         if (pos1val !== "" && pos1val === pos2val && pos2val === pos3val) {
-            console.log("Winner", pos1val);
+            
             showwinner(pos1val);
-            
-            
             return true;
         }
-        
+
+        if (pos1val === "" || pos2val === "" || pos3val === "") {
+            draw = false;
+        }
     }
     
+    if (draw) {
+        msg.innerText = `It is a draw `;
+        msg.style.display = "block";
+        msg.style.color = "white";
+        const audio = new Audio("negative_beeps-6008.mp3");
+        audio.play();
+        return true;
+    }
+
+    return false; 
 };
+
 resetbtn.addEventListener("click", () => {
 
     boxes.forEach((box) => {
