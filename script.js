@@ -83,7 +83,7 @@ const checkWinner = () => {
         msg.innerText = `It is a draw `;
         msg.style.display = "block";
         msg.style.color = "white";
-        const audio = new Audio("negative_beeps-6008.mp3");
+        const audio = new Audio("beep.mp3");
         audio.play();
         return true;
     }
